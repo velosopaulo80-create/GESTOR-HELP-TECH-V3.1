@@ -1,1 +1,50 @@
 
+name: Gerar APK Gestao HELP-TECH V3.1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Localizar Android SDK
+        run: |
+          SDKMANAGER=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)
+          if [ -z "$SDKMANAGER" ]; then
+            echo "Android SDK Manager nao encontrado"
+            exit 1
+          fi
+          echo "$(dirname "$SDKMANAGER")" >> "$GITHUB_PATH"
+
+      - name: Instalar Android SDK
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Instalar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Compilar APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Gestao-HELPTECH-V3.1-Android
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
