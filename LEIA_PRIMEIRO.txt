@@ -1,0 +1,26 @@
+GESTÃO HELP-TECH V3 — ATUALIZAÇÃO ANDROID
+
+Este ZIP é o CÓDIGO-FONTE para GitHub Actions, NÃO um APK instalável.
+
+ALTERAÇÕES:
+- Ícone oficial aprovado nas pastas app/src/main/res/mipmap-*
+- Manifesto Android aponta para o novo ícone.
+- Painel vertical sem rolagem na tela inicial, com data/hora reais do aparelho.
+- Faixa inferior da arte sem horário/contagem/sincronização fictícios.
+- Indicadores locais dinâmicos: próximos agendamentos futuros, pendências de envio, rede e última sincronização confirmada.
+- Mantidos os módulos e o protocolo de sincronização existentes do pacote original.
+- GitHub Actions preparado com Gradle 8.9 e Android SDK 35.
+
+COMO GERAR O APK:
+1. Extraia o ZIP no computador.
+2. No repositório GESTOR-HELP-TECH-V3 do GitHub, envie os arquivos e pastas extraídos, mantendo seus caminhos (inclusive .github e app/src/main/res).
+3. Faça Commit changes na branch main.
+4. Abra Actions > Gerar APK Gestao HELP-TECH V3 e aguarde a execução verde.
+5. Em Artifacts, baixe Gestao-HELPTECH-V3-Android e extraia o APK.
+
+CUIDADOS:
+- Faça backup dos dados do aplicativo anterior antes de instalar.
+- Esta é uma versão de teste. O servidor Windows precisa implementar /api/v3/change e /api/v3/snapshot para sincronização.
+- Indicador de rede não é confirmação de acesso ao servidor.
+- A exclusão local e a fila de sincronização seguem a implementação do pacote original.
+- O módulo Clientes continua em desenvolvimento no código original.
